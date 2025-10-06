@@ -34,6 +34,7 @@
 
 // export default upload;
 
+
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 const upload = async (file) => {

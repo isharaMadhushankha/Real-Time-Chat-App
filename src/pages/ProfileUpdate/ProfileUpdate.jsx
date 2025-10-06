@@ -307,8 +307,11 @@ const ProfileUpdate = () => {
         bio,
         avatar: imgBase64,
       });
-
+      
+     
       toast.success("Profile updated successfully!");
+      setTimeout(() => navigate('/chat'), 1500);
+    
     } catch (error) {
       console.error("Profile update failed:", error);
       toast.error("Something went wrong while updating your profile.");
