@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./LeftSidebar.css";
 import assets from "../../assets/assets";
 import { useNavigate } from "react-router-dom";
@@ -19,74 +19,77 @@ import { toast } from "react-toastify";
 
 const LeftSidebar = () => {
   const navigate = useNavigate();
-  const { userData, chatData } = useContext(AppContext);
-  const [user, setUser] = useState(null);
-  const [showSearch, setShowSearch] = useState(false);
+  const { userData, chatData, setChatuser, setMessagesId } = useContext(AppContext);
+  const [allUsers, setAllUsers] = useState([]);
+  const [loadingUsers, setLoadingUsers] = useState(true);
 
-  // 🔍 Search for user by username
-  const inputHandler = async (e) => {
+  // Fetch all registered users except the current user
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, where("id", "!=", userData.id));
+        const querySnap = await getDocs(usersRef);
+
+        // Filter out current user from the list
+        const usersList = querySnap.docs
+          .map((doc) => doc.data())
+          .filter((user) => user.id !== userData.id);
+
+        setAllUsers(usersList);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        toast.error("Failed to load users");
+      } finally {
+        setLoadingUsers(false);
+      }
+    };
+
+    if (userData?.id) {
+      fetchUsers();
+    }
+  }, [userData]);
+
+  // Create or open chat with selected user
+  const addChat = async (selectedUser) => {
+    if (!selectedUser) return;
+
     try {
-      const input = e.target.value.trim().toLowerCase();
+      const chatsRef = collection(db, "chats");
+      const messagesRef = collection(db, "messages");
 
-      if (input === "") {
-        setShowSearch(false);
-        setUser(null);
+      // Check if chat already exists between users in current user's chatData
+      const existingChat = chatData.find(
+        (chat) => chat.rId === selectedUser.id
+      );
+
+      if (existingChat) {
+        // Chat exists: just open it
+        setChatuser(selectedUser);
+        setMessagesId(existingChat.messageId);
         return;
       }
 
-      setShowSearch(true);
-      const usersRef = collection(db, "users");
-      const q = query(usersRef, where("username", "==", input));
-      const querySnap = await getDocs(q);
-
-      if (!querySnap.empty) {
-        const foundUser = querySnap.docs[0].data();
-
-        // Check if already in chat list
-        const userExist = chatData.some((chat) => chat.rId === foundUser.id);
-
-        // Prevent showing self or existing chat user
-        if (!userExist && foundUser.id !== userData.id) {
-          setUser(foundUser);
-        } else {
-          setUser(null);
-        }
-      } else {
-        setUser(null);
-      }
-    } catch (error) {
-      console.error("🔥 Error searching user:", error);
-      toast.error("Failed to search user");
-    }
-  };
-
-  // 💬 Create new chat
-  const addChat = async () => {
-    if (!user) return;
-    try {
-      const messageRef = collection(db, "messages");
-      const chatRef = collection(db, "chats");
-
-      // Create a new empty messages document
-      const newMessageRef = doc(messageRef);
+      // Create new messages doc
+      const newMessageRef = doc(messagesRef);
       await setDoc(newMessageRef, {
         createdAt: serverTimestamp(),
         messages: [],
       });
 
       // Add chat entry for current user
-      await updateDoc(doc(chatRef, userData.id), {
+      await updateDoc(doc(chatsRef, userData.id), {
         chatData: arrayUnion({
           messageId: newMessageRef.id,
           lastMessage: "",
-          rId: user.id,
+          rId: selectedUser.id,
           updatedAt: Date.now(),
           messageSeen: true,
         }),
       });
 
-      // Add chat entry for the receiver
-      await updateDoc(doc(chatRef, user.id), {
+      // Add chat entry for selected user
+      await updateDoc(doc(chatsRef, selectedUser.id), {
         chatData: arrayUnion({
           messageId: newMessageRef.id,
           lastMessage: "",
@@ -97,68 +100,42 @@ const LeftSidebar = () => {
       });
 
       toast.success("Chat created successfully!");
-      setUser(null);
-      setShowSearch(false);
+
+      // Open the new chat
+      setChatuser(selectedUser);
+      setMessagesId(newMessageRef.id);
     } catch (error) {
-      console.error("🔥 Error creating chat:", error);
+      console.error("Error creating chat:", error);
       toast.error(error.message);
     }
   };
 
-  const setChat = async (item)=>{
-    console.log(item);
-  }
-  
   return (
     <div className="ls">
       <div className="ls-top">
         <div className="ls-nav">
           <img src={assets.logo} className="logo" alt="" />
-          <div className="menu">
-            <img src={assets.menu_icon} alt="" />
-            <div className="sub-menu">
-              <p onClick={() => navigate("/profile")}>Edit profile</p>
-              <hr />
-              <p>Logout</p>
-            </div>
-          </div>
+          {/* Your existing menu code */}
         </div>
 
-        <div className="ls-search">
-          <img src={assets.search_icon} alt="" />
-          <input
-            onChange={inputHandler}
-            type="text"
-            placeholder="Search here..."
-          />
-        </div>
+        {/* Remove search bar or keep if you want */}
       </div>
 
       <div className="ls-list">
-        {showSearch ? (
-          user ? (
-            <div className="friend" onClick={addChat}>
-              <img src={user.avatar || assets.profile_img} alt="" />
+        {loadingUsers ? (
+          <p>Loading users...</p>
+        ) : allUsers.length === 0 ? (
+          <p>No users found.</p>
+        ) : (
+          allUsers.map((user) => (
+            <div key={user.id} className="friend" onClick={() => addChat(user)}>
+              <img src={user.avatar || assets.profile_img} alt={user.username} />
               <div>
-                <p>{user.username}</p>
+                <p>{user.name || user.username}</p>
                 <span>{user.bio || "No bio available"}</span>
               </div>
             </div>
-          ) : (
-            <p className="no-user">No user found</p>
-          )
-        ) : chatData && chatData.length > 0 ? (
-          chatData.map((item, index) => (
-            <div onClick={()=>setChat(item)} key={index} className="friend">
-              <img src={item.userData.avatar || assets.profile_img} alt="" />
-              <div>
-                <p>{item.userData.name}</p>
-                <span>{item.lastMessage || "No messages yet"}</span>
-              </div>
-            </div>
           ))
-        ) : (
-          <p className="no-chats">No chats available</p>
         )}
       </div>
     </div>

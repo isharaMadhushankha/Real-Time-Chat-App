@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 
 // ✅ Corrected Firebase configuration
 const firebaseConfig = {
- 
+  apiKey: "AIzaSyB2buMtfv4uNoRK3JSCdjjRt7WeIkr-Aa8",
   authDomain: "chat-app-a5534.firebaseapp.com",
   projectId: "chat-app-a5534",
   // ✅ Fixed: changed from .firebasestorage.app → .appspot.com
