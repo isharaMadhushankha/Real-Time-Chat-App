@@ -27,7 +27,7 @@ const Login = () => {
           <h2>{currentState}</h2>
           {currentState==="Sign Up"?<input type="text" onChange={(e)=>{setUsername(e.target.value)}} value={username}  placeholder='Enter username..' className='form-input' required/>:null}
           <input type="email" placeholder='Enter email..' onChange={(e)=>{setemail(e.target.value)}} value={email} className='form-input' required/>
-          <input type="password" placeholder='Enter username..' onChange={(e)=>{setPassowrd(e.target.value)}} value={password} className='form-input'  required/>
+          <input type="password" placeholder='Enter password..' onChange={(e)=>{setPassowrd(e.target.value)}} value={password} className='form-input'  required/>
           <button type='submit'>{currentState==="Sign Up"?"Create an account":"Login now"}</button>
           <div className="login-term">
             <input type="checkbox" />

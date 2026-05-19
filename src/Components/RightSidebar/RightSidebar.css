@@ -42,12 +42,10 @@
 }
 .rs-media div {
   max-width: 200px;
-  overflow-y: scroll;
+  overflow-y: auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 5px;
-  /* margin-top: 8px;
-    margin-left: 10px; */
+  gap: 8px;
   margin: auto;
 }
 .rs-media p{
@@ -56,8 +54,25 @@
 
 .rs-media div img {
   width: 60px;
-  border-radius: 4px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 6px;
   cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.rs-media div img:hover {
+  transform: scale(1.06);
+  filter: brightness(0.85);
+}
+
+.no-media {
+  grid-column: span 3;
+  text-align: center;
+  font-size: 11px;
+  color: #a0aec0;
+  padding: 15px 0;
+  font-style: italic;
 }
 
 .rs button {

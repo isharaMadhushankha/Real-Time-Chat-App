@@ -48,7 +48,7 @@
 .chat-msg {
   flex: 1;
   overflow-y: auto;
-  padding: 15px;
+  padding: 15px 15px 90px 15px; /* Spacing at bottom to ensure last message is fully visible above absolutely-positioned input bar */
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -103,18 +103,32 @@
   margin-top: 4px;
 }
 
-.s-msg img,
-.r-msg img {
+.s-msg div img,
+.r-msg div img {
   width: 24px;
   height: 24px;
   border-radius: 50%;
+  object-fit: cover;
 }
+
 
 /* Image Message */
 .msg-img {
-  max-width: 200px;
-  border-radius: 10px;
+  max-width: 320px;
+  max-height: 240px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s;
 }
+
+.msg-img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
 
 /* Chat Input */
 .chat-input {
@@ -176,3 +190,180 @@
   font-weight: 500;
   color: #333;
 }
+
+/* ========================================== */
+/* WhatsApp-Style Glassmorphic Image Preview Overlay */
+/* ========================================== */
+.image-preview-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(4, 12, 30, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeInPreview 0.25s ease-out;
+}
+
+@keyframes fadeInPreview {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.image-preview-container {
+  background: rgba(14, 25, 50, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 480px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  animation: scaleInPreview 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes scaleInPreview {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
+
+.preview-header h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.close-preview-btn {
+  background: transparent;
+  border: none;
+  color: #a0aec0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.close-preview-btn:hover {
+  color: white;
+  transform: scale(1.1);
+}
+
+.preview-body {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 280px;
+}
+
+.preview-body img {
+  max-width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+}
+
+.preview-caption-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, background-color 0.2s;
+  box-sizing: border-box;
+}
+
+.preview-caption-input:focus {
+  border-color: #077eff;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.preview-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.preview-cancel-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.preview-cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.preview-send-btn {
+  background: #077eff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.preview-send-btn:hover {
+  background: #0066d6;
+  transform: translateY(-1px);
+}
+
+.preview-send-btn img {
+  width: 16px;
+  filter: brightness(0) invert(1);
+}
+
+/* Spinner for loading state */
+.preview-uploading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #e2e8f0;
+  font-size: 14px;
+}
+
+.preview-uploading .spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top: 2px solid #077eff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+

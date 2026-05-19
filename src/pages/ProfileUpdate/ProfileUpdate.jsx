@@ -6,7 +6,7 @@ import "./ProfileUpdate.css";
 import assets from '../../assets/assets';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '../../Config/firebase';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -46,13 +46,32 @@ const ProfileUpdate = () => {
 
       const docRef = doc(db, 'users', uid);
 
-      await updateDoc(docRef, {
+      // Save user profile robustly (creating the document if it doesn't exist)
+      await setDoc(docRef, {
+        id: uid,
         name,
         bio,
         avatar: imgBase64,
-      });
+        lastseen: Date.now()
+      }, { merge: true });
+
+      // Automatically initialize user's chats document if missing
+      const chatsRef = doc(db, 'chats', uid);
+      const chatsSnap = await getDoc(chatsRef);
+      if (!chatsSnap.exists()) {
+        await setDoc(chatsRef, { chatData: [] });
+      }
+
+      // Automatically initialize user's requests document if missing
+      const requestsRef = doc(db, 'requests', uid);
+      const requestsSnap = await getDoc(requestsRef);
+      if (!requestsSnap.exists()) {
+        await setDoc(requestsRef, {
+          receivedRequests: [],
+          sentRequests: []
+        });
+      }
       
-     
       toast.success("Profile updated successfully!");
       setTimeout(() => navigate('/chat'), 1500);
     

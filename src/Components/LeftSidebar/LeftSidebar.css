@@ -11,9 +11,28 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 15px;
+}
+.profile-container-left {
+  display: flex;
+  align-items: center;
+}
+.self-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(7, 126, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.self-avatar:hover {
+  border-color: #077EFF;
+  transform: scale(1.08);
+  box-shadow: 0 0 10px rgba(7, 126, 255, 0.4);
 }
 .ls-nav .logo {
-  max-width: 140px;
+  max-width: 110px;
 }
 .ls-nav .menu img {
   max-height: 20px;
@@ -61,10 +80,9 @@
     cursor: pointer;
     font-size: 13px;
 }
-.friend div{
+.friend-info > div {
     display: flex;
     flex-direction: column;
-
 }
 .friend span{
     color: #9f9f9f;
@@ -108,4 +126,309 @@
 
 .menu:hover .sub-menu{
     display: block;
+}
+
+/* Custom Tabs for Chats / Discover / Requests */
+.ls-tabs {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  margin-top: 15px;
+  background: #001c4e;
+  padding: 4px;
+  border-radius: 20px;
+}
+.ls-tabs button {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #c8c8c8;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
+.ls-tabs button.active {
+  background: #077EFF;
+  color: white;
+  box-shadow: 0 2px 8px rgba(7, 126, 255, 0.4);
+}
+.ls-tabs button:hover:not(.active) {
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Request count Badge */
+.req-badge {
+  background-color: #ff3b30;
+  color: white;
+  font-size: 9px;
+  min-width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Discover User container & Action Buttons */
+.discover-user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+.discover-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 13px;
+  max-width: 65%;
+}
+.discover-info img {
+  width: 35px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.discover-info div {
+  display: flex;
+  flex-direction: column;
+}
+.discover-info p {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.discover-info span {
+  color: #9f9f9f;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Actions styling */
+.discover-actions {
+  display: flex;
+  gap: 6px;
+}
+.action-btn {
+  border: none;
+  outline: none;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.add-btn {
+  background-color: #077EFF;
+  color: white;
+}
+.add-btn:hover {
+  background-color: #0060d0;
+}
+.sent-btn {
+  background-color: #3a3a3c;
+  color: #8e8e93;
+  cursor: not-allowed;
+}
+.accept-btn {
+  background-color: #34c759;
+  color: white;
+}
+.accept-btn:hover {
+  background-color: #248a3d;
+}
+.decline-btn {
+  background-color: #ff3b30;
+  color: white;
+}
+.decline-btn:hover {
+  background-color: #b3241d;
+}
+.chat-btn {
+  background-color: #5856d6;
+  color: white;
+}
+.chat-btn:hover {
+  background-color: #433eb1;
+}
+
+.empty-message {
+  padding: 30px 20px;
+  color: #9f9f9f;
+  text-align: center;
+  font-size: 12px;
+}
+
+/* Custom Pinned & Unread Badges styling */
+.friend {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  transition: all 0.2s ease;
+}
+.friend.active-friend {
+  background-color: #077EFF !important;
+}
+.friend.active-friend span {
+  color: #e0e0e0 !important;
+}
+.friend.active-friend p {
+  color: white !important;
+}
+
+.friend-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  max-width: 70%;
+}
+.friend-info p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  color: white;
+}
+
+/* React Pinned Icon next to Username */
+.pinned-icon {
+  font-size: 12px;
+  color: #077EFF;
+  margin-left: 4px;
+}
+.friend.active-friend .pinned-icon {
+  color: white;
+}
+
+.friend-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Unread message count badge */
+.unread-badge {
+  background-color: #ff3b30;
+  color: white;
+  font-size: 9px;
+  font-weight: bold;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(255, 59, 48, 0.4);
+}
+
+/* Premium Three-Dots Action dropdown menu */
+.more-menu-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.more-btn {
+  background: transparent;
+  border: none;
+  color: #9f9f9f;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.more-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+.friend.active-friend .more-btn {
+  color: rgba(255, 255, 255, 0.7);
+}
+.friend.active-friend .more-btn:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.friend-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  z-index: 1000;
+  background-color: #001c4e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  padding: 6px 0;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  animation: dropdownFadeIn 0.15s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  font-size: 11px;
+  color: #c8c8c8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+.dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+.dropdown-item .item-icon {
+  font-size: 13px;
+}
+.dropdown-item .pin-icon-active {
+  color: #077EFF;
+}
+
+.dropdown-divider {
+  border: none;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.05);
+  margin: 4px 0;
+}
+
+.delete-item {
+  color: #ff3b30;
+}
+.delete-item:hover {
+  background-color: rgba(255, 59, 48, 0.1) !important;
+  color: #ff3b30 !important;
 }
