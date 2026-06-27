@@ -169,8 +169,3 @@ Spin up the local development hot-reload server:
 npm run dev
 
 
-Distributed under the MIT License. Built for Research and Educational Applications.
-
-```
-
-```
