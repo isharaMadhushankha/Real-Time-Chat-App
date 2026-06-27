@@ -16,19 +16,19 @@
 <table align="center">
   <tr>
     <td align="center" width="25%">
-      <img src="https://via.placeholder.com/210x440?text=Authentication+Screen" width="210" alt="Secure Auth"/>
+      <img src="https://github.com/user-attachments/assets/d61d5a5e-8446-435e-a326-ab1eb0dc4b4b" width="210" alt="Secure Auth"/>
       <br><sub><b>1. Secure Authentication</b></sub>
     </td>
     <td align="center" width="25%">
-      <img src="https://via.placeholder.com/210x440?text=Real-time+Chat+UI" width="210" alt="Real-time Chat"/>
+      <img src="https://github.com/user-attachments/assets/e6e4fc64-d4df-4a0a-b0af-9537f65e913e" width="210" alt="Real-time Chat"/>
       <br><sub><b>2. Real-Time Chat Engine</b></sub>
     </td>
     <td align="center" width="25%">
-      <img src="https://via.placeholder.com/210x440?text=Gemini+AI+Assistant" width="210" alt="Gemini AI"/>
+      <img src="https://github.com/user-attachments/assets/86f78e48-2250-4188-9e03-0c013d817bf4" width="210" alt="Gemini AI"/>
       <br><sub><b>3. Embedded Gemini Chat</b></sub>
     </td>
     <td align="center" width="25%">
-      <img src="https://via.placeholder.com/210x440?text=Group+Management" width="210" alt="Group Administration"/>
+      <img src="https://github.com/user-attachments/assets/2130c645-581b-4f03-bfb5-68afa07a57f9" width="210" alt="Group Administration"/>
       <br><sub><b>4. Group Administration</b></sub>
     </td>
   </tr>
