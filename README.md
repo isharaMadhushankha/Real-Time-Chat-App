@@ -1,5 +1,5 @@
 
-# 💬🤖 OmniChat — Real-Time AI-Integrated Messaging Platform
+# 💬🤖 OmniChat - Real-Time AI-Integrated Messaging Platform
 
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
@@ -16,22 +16,22 @@
 <table align="center">
   <tr>
     <td align="center" width="50%">
-      <img src="https://github.com/user-attachments/assets/d61d5a5e-8446-435e-a326-ab1eb0dc4b4b" width="410" alt="Secure Auth"/>
+      <img src="https://github.com/user-attachments/assets/d61d5a5e-8446-435e-a326-ab1eb0dc4b4b" width="450" alt="Secure Auth"/>
       <br><sub><b>1. Real-Time Chat</b></sub>
     </td>
     <td align="center" width="50%">
-      <img src="https://github.com/user-attachments/assets/e6e4fc64-d4df-4a0a-b0af-9537f65e913e" width="410" alt="Real-time Chat"/>
+      <img src="https://github.com/user-attachments/assets/e6e4fc64-d4df-4a0a-b0af-9537f65e913e" width="450" alt="Real-time Chat"/>
       <br><sub><b>2. Group Administration </b></sub>
     </td>
   </tr>
 </table><table align="center">
   <tr>
     <td align="center" width="50%">
-      <img src="https://github.com/user-attachments/assets/86f78e48-2250-4188-9e03-0c013d817bf4" width="410" alt="Gemini AI"/>
+      <img src="https://github.com/user-attachments/assets/86f78e48-2250-4188-9e03-0c013d817bf4" width="450" alt="Gemini AI"/>
       <br><sub><b>3. Realtime Game</b></sub>
     </td>
     <td align="center" width="50%">
-      <img src="https://github.com/user-attachments/assets/2130c645-581b-4f03-bfb5-68afa07a57f9" width="410" alt="Group Administration"/>
+      <img src="https://github.com/user-attachments/assets/2130c645-581b-4f03-bfb5-68afa07a57f9" width="450" alt="Group Administration"/>
       <br><sub><b>4. Embedded Gemini Chat</b></sub>
     </td>
   </tr>
