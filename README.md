@@ -37,6 +37,9 @@
   </tr>
 </table>
 
+## 🚀 Live Demo
+🌐 [Live Application](https://www.linkedin.com/posts/madhushankha-ishara_reactjs-firebase-supabase-activity-7463922000449736704-0tK5?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAD9sE14B2jNy3SWgFVdvdqlIazOWSIxri54)
+
 ---
 
 ## ✨ Key Features
